@@ -4,3 +4,5 @@ Kako bi aplikacija radila ispravno potrebno je izvršiti reinstalaciju NuGet pak
 NuGet paketi koji su potrebni i koji će se instalirati prilikom reinstalacije su: Microsoft.EntityFrameworkCore, Microsoft.EntityFrameworkCore.SqlServer i Microsoft.EntityFrameworkCore.Tools.
 
 Nakon toga potrebno je prilagoditi ConnectionStrings koji se nalazi u datoteci "appsettings.json" odnosno potrebno mu je izmijeniti server tako da mu postavite instancu Sql servera koji vi koristite kako bi se uspješno povezao na njega. Nakon toga potrebno je samo unutar Package Manager Console alata pokrenuti naredbu "update-database" kako bi se generirala baza podataka prema već napravljenim migracijama.
+
+Također na tabu Issues nalazi se demo video koji prokazuje kako aplikacija radi.
