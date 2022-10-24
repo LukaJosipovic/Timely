@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Project>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<link rel="stylesheet" href="~/css/StyleAdd.css"/>
+
+<h1 id="title">Timely</h1>
+
+<div id="btnDiv">
+    @using(Html.BeginForm("Add", "ProjectsController1", "POST"))
+    {
+        @Html.AntiForgeryToken()
+
+        <button type="submit" id="btnStart" class="btn btn-primary">Start</button>
+
+        <input type="hidden" name="Date" value=@DateTime.Now.ToString("MM/dd/yyyy")>
+        <input type="hidden" name="Time" value=@DateTime.Now.ToString("HH:mm:ss")>
+    }
+    <button id="btnStop" data-toggle="modal" class="btn btn-primary">Stop</button>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Project name</th>
+                        <th scope="col">Start date</th>
+                        <th scope="col">Stop Date</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ProjectName</td>
+                            <td>@item.StartDate</td>
+                            <td>@item.StopDate</td>
+                            <td>@item.Duration</td>
+                            <td>@Html.ActionLink("Delete", "Delete", "ProjectsController1", new { id = item.ProjectId}, new { @class = "btn btn-danger" })</td>
+                        </tr>
+                    }
+                 </tbody>
+            </table>        
+        </div>
+    </div>
+</div>                      
+
+<div class="popup-modal">
+    @using(Html.BeginForm("Update", "ProjectsController1", "POST"))
+    {
+        @Html.AntiForgeryToken()
+
+        <form>
+            <div class="mb-3">
+                <label for="projectname" class="form-label">Project name</label><span id="close"><h5>X</h5></span>
+                <input type="text" name="Name" class="form-control" id="projectname" required>
+                <input type="hidden" name="Date" value=@DateTime.Now.ToString("MM/dd/yyyy")>
+                <input type="hidden" name="Time" value=@DateTime.Now.ToString("HH:mm:ss")>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    }
+</div>
+
+<div class="overlay"></div>
+
+<script>
+    let stop = document.querySelector("#btnStop")
+    stop.addEventListener("click", () => {
+        let modalWindow = document.querySelector(".popup-modal")
+        let overlay = document.querySelector(".overlay")
+
+        overlay.style.display = "block"
+        modalWindow.style.display = "block"
+    })
+
+    let close = document.querySelector("#close")
+    close.addEventListener("click", () => {
+        let modalWindow = document.querySelector(".popup-modal")
+        let overlay = document.querySelector(".overlay")
+
+        overlay.style.display = "none"
+        modalWindow.style.display = "none"
+    })
+</script>
+                                               
